@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+
+public class chapter_21_5 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String input;
+        int num;
+        while((input = br.readLine()) != null)
+        {
+            StringBuffer sb = new StringBuffer();
+            if(input.equals("0"))num = 1;
+            else num = (int) Math.pow(3, Integer.parseInt(input));
+
+            String[] arr = new String[num];
+            Arrays.fill(arr, "-");
+            int length = num;
+            while (length != 1) {
+                length = length / 3;
+                int j = 0;
+                int count = 0;
+                while (j < num) {
+                    if (arr[j].equals("-")) {
+                        count++;
+                    }
+                    if (count == length) {
+                        if (j + 1 >= num) break;
+                        for (int i = j + 1; i <= j + length; i++) {
+                            arr[i] = " ";
+                        }
+                        count = 0;
+                        j += length * 2;
+                    }
+                    j++;
+                }
+            }
+            for (String o :
+                    arr) {
+                sb.append(o);
+            }
+            System.out.println(sb);
+        }
+    }
+}
