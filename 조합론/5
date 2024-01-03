@@ -1,0 +1,32 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    public static int[][] dp;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int num = Integer.parseInt(br.readLine());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < num; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            dp = new int[b+1][a+1];
+            sb.append(combi(b,a)).append("\n");
+        }
+        System.out.println(sb);
+    }
+    public static int combi(int N,int K){
+
+        if(dp[N][K] > 0){
+            return dp[N][K];
+        }
+
+        if(N==K||K == 0){
+            return dp[N][K] = 1;
+        }
+
+        return dp[N][K] = combi(N-1,K-1)+combi(N-1,K);
+    }
+}

@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static StringBuilder sb = new StringBuilder();
+    static int[] arr;
+    static int N;
+    static int K;
+    static int dupPerCount=0;
+
+    public static void dupPermutation(ArrayList<Integer> list, int count) {
+        // 다 뽑았을 때
+        StringBuffer SB = new StringBuffer();
+        if (count == 0) {
+            for (int i = 1; i < K; i++) {
+                if(list.get(i) < list.get(i-1)) return;
+                SB.append(list.get(i-1)).append(" ");
+            }
+            SB.append(list.get(K-1));
+            sb.append(SB).append("\n");
+            dupPerCount++;
+            return;
+        }
+
+        for (int i = 0; i < N; i++) {
+            list.add(arr[i]);
+            dupPermutation(list, count - 1); // 뽑을 때 마다 count - 1
+            list.remove(list.size() - 1); // 재귀 위해 마지막에 넣은 원소 제거
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        arr = new int[N];
+        boolean[] visited = new boolean[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = i+1;
+        }
+        dupPermutation(new ArrayList<Integer>(), K);
+        System.out.println(sb);
+
+    }
+}
